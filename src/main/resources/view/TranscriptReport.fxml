@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controller.TranscriptReportController"
+            prefWidth="1200" prefHeight="800"
+            style="-fx-padding: 15;">
+
+    <top>
+        <VBox spacing="15">
+            <Label text="Official Academic Transcripts"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Separator/>
+
+            <!-- Summary Statistics -->
+            <HBox spacing="30" alignment="CENTER">
+                <VBox alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #e8f4fd; -fx-border-color: #3498db; -fx-border-radius: 5;">
+                    <Label text="Total Students" style="-fx-font-size: 12px; -fx-text-fill: #2980b9;"/>
+                    <Label fx:id="totalTranscriptsLabel" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2980b9;"/>
+                </VBox>
+                <VBox alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #e8f6f3; -fx-border-color: #27ae60; -fx-border-radius: 5;">
+                    <Label text="Transcripts Ready" style="-fx-font-size: 12px; -fx-text-fill: #27ae60;"/>
+                    <Label fx:id="transcriptsGeneratedLabel" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <TabPane>
+            <!-- Individual Transcript Tab -->
+            <Tab text="Generate Transcript">
+                <VBox spacing="15" style="-fx-padding: 15;">
+                    <!-- Student Selection -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Select Student:" style="-fx-font-weight: bold;"/>
+                        <ComboBox fx:id="studentComboBox" prefWidth="400"/>
+                        <Button text="Generate Transcript" onAction="#handleGenerateTranscript"
+                                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                        <Button text="Export" onAction="#handleExportTranscript"
+                                style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+                        <Button text="Print" onAction="#handlePrintTranscript"
+                                style="-fx-background-color: #e67e22; -fx-text-fill: white;"/>
+                    </HBox>
+
+                    <!-- Transcript Display -->
+                    <Label text="Official Academic Transcript:" style="-fx-font-weight: bold;"/>
+                    <TextArea fx:id="transcriptTextArea" prefRowCount="25" wrapText="true"
+                              style="-fx-font-family: 'Consolas', 'Monaco', monospace; -fx-font-size: 12px;"/>
+                </VBox>
+            </Tab>
+
+            <!-- Batch Transcripts Tab -->
+            <Tab text="Batch Transcripts">
+                <VBox spacing="15" style="-fx-padding: 15;">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Recent Transcripts Overview" style="-fx-font-weight: bold;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="Generate All Transcripts" onAction="#handleGenerateAllTranscripts"
+                                style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                    </HBox>
+
+                    <Label text="Recent Student Transcripts:" style="-fx-font-weight: bold;"/>
+                    <TableView fx:id="transcriptsTable" prefHeight="300">
+                        <columns>
+                            <TableColumn fx:id="colStudentName" text="Student Name" prefWidth="200"/>
+                            <TableColumn fx:id="colRegNumber" text="Reg Number" prefWidth="120"/>
+                            <TableColumn fx:id="colGPA" text="GPA" prefWidth="80"/>
+                            <TableColumn fx:id="colAcademicStanding" text="Academic Standing" prefWidth="150"/>
+                            <TableColumn fx:id="colCreditsEarned" text="Credits Earned" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+
+                    <VBox spacing="10" style="-fx-padding: 15; -fx-background-color: #f8f9fa; -fx-border-color: #bdc3c7; -fx-border-radius: 5;">
+                        <Label text="Batch Operations:" style="-fx-font-weight: bold;"/>
+                        <Label text="• Generate official transcripts for all students"/>
+                        <Label text="• Export multiple transcripts at once"/>
+                        <Label text="• Print batch transcripts for administrative use"/>
+                    </VBox>
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>

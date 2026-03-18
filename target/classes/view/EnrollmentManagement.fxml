@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.paint.Color?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controller.EnrollmentController"
+            prefWidth="1200" prefHeight="800"
+            style="-fx-padding: 10;">
+
+    <top>
+        <VBox spacing="10">
+            <Label text="Enrollment Management"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Separator/>
+
+            <!-- Search Section -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Search:" style="-fx-font-weight: bold;"/>
+                <TextField fx:id="searchField" promptText="Search by student, course, or grade..." prefWidth="300"/>
+                <Button fx:id="btnSearch" text="Search" onAction="#handleSearch"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                <Button fx:id="btnRefresh" text="Refresh" onAction="#handleRefresh"
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.6" orientation="HORIZONTAL">
+
+            <!-- Left: Enrollments Table -->
+            <VBox spacing="10">
+                <Label text="Enrollments List" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <TableView fx:id="enrollmentTableView" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colStudent" text="Student" prefWidth="200"/>
+                        <TableColumn fx:id="colCourse" text="Course" prefWidth="200"/>
+                        <TableColumn fx:id="colEnrollmentDate" text="Enrollment Date" prefWidth="120"/>
+                        <TableColumn fx:id="colScore" text="Score" prefWidth="80"/>
+                        <TableColumn fx:id="colGrade" text="Grade" prefWidth="80"/>
+                        <TableColumn fx:id="colActions" text="Actions" prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Right: Enrollment Form -->
+            <VBox spacing="15" style="-fx-padding: 10;">
+                <Label text="Enroll Student" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="120"/>
+                        <ColumnConstraints prefWidth="250"/>
+                    </columnConstraints>
+
+                    <rowConstraints>
+                        <RowConstraints prefHeight="35"/>
+                        <RowConstraints prefHeight="35"/>
+                        <RowConstraints prefHeight="35"/>
+                        <RowConstraints prefHeight="35"/>
+                        <RowConstraints prefHeight="35"/>
+                        <RowConstraints prefHeight="35"/>
+                    </rowConstraints>
+
+                    <!-- Student Selection -->
+                    <Label text="Student:*" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <ComboBox fx:id="studentComboBox" promptText="Select student..."
+                              GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <!-- Course Selection -->
+                    <Label text="Course:*" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <ComboBox fx:id="courseComboBox" promptText="Select course..."
+                              GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <!-- Enrollment Date -->
+                    <Label text="Enrollment Date:*" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <DatePicker fx:id="enrollmentDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <!-- Score Field -->
+                    <Label text="Score:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <TextField fx:id="scoreField" promptText="Enter score (0-100)"
+                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                    <!-- Grade Display -->
+                    <Label text="Grade:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                    <Label fx:id="gradeLabel" text="Grade: " GridPane.columnIndex="1" GridPane.rowIndex="4"
+                           style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+                    <!-- Action Buttons -->
+                    <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                        <Button fx:id="btnEnroll" text="Enroll Student" onAction="#handleEnrollStudent"
+                                style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-pref-width: 120;"/>
+                        <Button fx:id="btnUpdate" text="Update" onAction="#handleUpdateEnrollment"
+                                style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-pref-width: 120;"/>
+                        <Button fx:id="btnClear" text="Clear" onAction="#handleClearForm"
+                                style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-pref-width: 120;"/>
+                    </HBox>
+                </GridPane>
+
+                <!-- Grading Information -->
+                <VBox spacing="5" style="-fx-padding: 10; -fx-background-color: #f8f9fa; -fx-border-color: #bdc3c7; -fx-border-radius: 5;">
+                    <Label text="Grading System:" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                    <Label text="• A: 90-100"/>
+                    <Label text="• B: 80-89"/>
+                    <Label text="• C: 70-79"/>
+                    <Label text="• D: 60-69"/>
+                    <Label text="• FAIL: Below 60" style="-fx-text-fill: #e74c3c; -fx-font-weight: bold;"/>
+                    <Label text="Note: Students with FAIL grade cannot be enrolled." style="-fx-font-style: italic; -fx-text-fill: #e74c3c;"/>
+                </VBox>
+
+                <!-- Instructions -->
+                <VBox spacing="5" style="-fx-padding: 10; -fx-background-color: #ecf0f1; -fx-border-color: #bdc3c7; -fx-border-radius: 5;">
+                    <Label text="Instructions:" style="-fx-font-weight: bold;"/>
+                    <Label text="• Fields marked with * are required"/>
+                    <Label text="• Click on a enrollment in the table to edit or delete"/>
+                    <Label text="• Score is optional during enrollment"/>
+                    <Label text="• Grade is automatically calculated from score"/>
+                    <Label text="• Use search to find specific enrollments"/>
+                </VBox>
+            </VBox>
+        </SplitPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
+            <Label text="Total Enrollments:" style="-fx-font-weight: bold;"/>
+            <Label text="0" fx:id="lblTotalEnrollments"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Enrollment Management System v1.0" style="-fx-text-fill: #7f8c8d; -fx-font-style: italic;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

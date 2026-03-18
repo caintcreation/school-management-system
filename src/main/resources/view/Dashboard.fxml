@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controller.DashboardController"
+            prefWidth="1200" prefHeight="800"
+            style="-fx-background-color: #f4f4f4;">
+
+    <!-- Top Menu -->
+    <top>
+        <VBox>
+            <MenuBar>
+                <Menu text="File">
+                    <MenuItem text="Exit" onAction="#handleExit"/>
+                </Menu>
+                <Menu text="Management">
+                    <MenuItem text="Student Management" onAction="#showStudentManagement"/>
+                    <MenuItem text="Course Management" onAction="#showCourseManagement"/>
+                    <MenuItem text="Enrollment Management" onAction="#showEnrollmentManagement"/>
+                    <MenuItem text="Grade Management" onAction="#showGradeManagement"/>
+                </Menu>
+                <Menu text="Reports">
+                    <MenuItem text="Student Reports" onAction="#showStudentReport"/>
+                    <MenuItem text="Course Reports" onAction="#showEnrollmentReport"/>
+                    <MenuItem text="Transcript Reports" onAction="#showTranscriptReport"/>
+                </Menu>
+                <Menu text="Help">
+                    <MenuItem text="About" onAction="#showAbout"/>
+                </Menu>
+            </MenuBar>
+            <Separator/>
+        </VBox>
+    </top>
+
+    <!-- Center Content - Welcome Screen -->
+    <center>
+        <VBox alignment="CENTER" spacing="30" style="-fx-padding: 50;">
+            <!-- Header -->
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="🎓 Student Records Management System"
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <Label text="Chuka University - Department of Computer Science"
+                       style="-fx-font-size: 16px; -fx-text-fill: #7f8c8d;"/>
+                <Label text="ACSC 332 - Desktop Application Development - CAT 2 Project"
+                       style="-fx-font-size: 12px; -fx-text-fill: #95a5a6;"/>
+            </VBox>
+
+            <!-- Quick Actions Grid -->
+            <GridPane alignment="CENTER" hgap="20" vgap="20">
+                <columnConstraints>
+                    <ColumnConstraints prefWidth="200"/>
+                    <ColumnConstraints prefWidth="200"/>
+                    <ColumnConstraints prefWidth="200"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints prefHeight="100"/>
+                    <RowConstraints prefHeight="100"/>
+                </rowConstraints>
+
+                <!-- Row 1 -->
+               <Button text="👥 Manage Students"
+                        onAction="#showStudentManagement"
+                        style="-fx-font-size: 14px; -fx-pref-width: 180px; -fx-pref-height: 80px;"
+                        GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <tooltip>
+                        <Tooltip text="Add, edit, delete, and view student records"/>
+                    </tooltip>
+                </Button>
+
+                <Button text="📚 Manage Courses"
+                        onAction="#showCourseManagement"
+                        style="-fx-font-size: 14px; -fx-pref-width: 180px; -fx-pref-height: 80px;"
+                        GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <tooltip>
+                        <Tooltip text="Manage course catalog and information"/>
+                    </tooltip>
+                </Button>
+
+                <Button text="📝 Enrollment"
+                        onAction="#showEnrollmentManagement"
+                        style="-fx-font-size: 14px; -fx-pref-width: 180px; -fx-pref-height: 80px;"
+                        GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <tooltip>
+                        <Tooltip text="Enroll students in courses"/>
+                    </tooltip>
+                </Button>
+
+                <!-- Row 2 -->
+                <Button text="📊 Grade Management"
+                        onAction="#showGradeManagement"
+                        style="-fx-font-size: 14px; -fx-pref-width: 180px; -fx-pref-height: 80px;"
+                        GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <tooltip>
+                        <Tooltip text="Record and manage student grades"/>
+                    </tooltip>
+                </Button>
+
+                <Button text="📋 Student Reports"
+                        onAction="#showStudentReport"
+                        style="-fx-font-size: 14px; -fx-pref-width: 180px; -fx-pref-height: 80px;"
+                        GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <tooltip>
+                        <Tooltip text="Generate student reports and transcripts"/>
+                    </tooltip>
+                </Button>
+
+                <Button text="🏫 Course Reports"
+                        onAction="#showEnrollmentReport"
+                        style="-fx-font-size: 14px; -fx-pref-width: 180px; -fx-pref-height: 80px;"
+                        GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <tooltip>
+                        <Tooltip text="View course enrollment and statistics"/>
+                    </tooltip>
+                </Button>
+            </GridPane>
+
+            <!-- System Status -->
+            <VBox alignment="CENTER" spacing="10" style="-fx-padding: 20;">
+                <Label text="System Status: ✅ Ready" style="-fx-font-size: 14px; -fx-text-fill: #27ae60;"/>
+                <ProgressIndicator progress="-1" visible="false" id="progressIndicator"/>
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- Status Bar -->
+    <bottom>
+        <BorderPane style="-fx-background-color: #34495e; -fx-padding: 5;">
+            <left>
+                <Label text="Status: Ready" style="-fx-text-fill: white; -fx-padding: 5;"/>
+            </left>
+            <center>
+                <Label text="Student Records Management System v1.0"
+                       style="-fx-text-fill: white; -fx-padding: 5;"/>
+            </center>
+            <right>
+                <Label text="Developed for ACSC 332 - CAT 2"
+                       style="-fx-text-fill: white; -fx-padding: 5;"/>
+            </right>
+        </BorderPane>
+    </bottom>
+
+</BorderPane>

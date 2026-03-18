@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controller.GradeReportController"
+            prefWidth="1200" prefHeight="800"
+            style="-fx-padding: 15;">
+
+    <top>
+        <VBox spacing="15">
+            <Label text="Grade Reports and Analytics"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Separator/>
+
+            <!-- Comprehensive Report Buttons -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="System Reports:" style="-fx-font-weight: bold;"/>
+                <Button fx:id="btnComprehensiveReport" text="Comprehensive Grade Report"
+                        onAction="#handleGenerateComprehensiveReport"
+                        style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
+                <Button fx:id="btnFailingStudents" text="Failing Students Report"
+                        onAction="#handleGenerateFailingStudentsReport"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                <Button fx:id="btnEnrollmentSummary" text="Enrollment Summary"
+                        onAction="#handleGenerateEnrollmentSummary"
+                        style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                <Button fx:id="btnStudentPerformance" text="Student Performance"
+                        onAction="#handleGenerateStudentPerformance"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.5" orientation="HORIZONTAL">
+
+            <!-- Left: Student Reports -->
+            <VBox spacing="15" style="-fx-padding: 10;">
+                <Label text="Student Reports" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+                <!-- Student Selection -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Select Student:" style="-fx-font-weight: bold;"/>
+                    <ComboBox fx:id="comboStudentReport" prefWidth="300"/>
+                    <Button text="Generate Report" onAction="#handleGenerateStudentReport"
+                            style="-fx-background-color: #27ae60; -fx">
+
+                    </Button>
+                </HBox>
+            </VBox>
+        </SplitPane>
+    </center>
+                </BorderPane>

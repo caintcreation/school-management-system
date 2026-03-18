@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controller.StudentReportController"
+            prefWidth="1200" prefHeight="800"
+            style="-fx-padding: 15;">
+
+    <top>
+        <VBox spacing="15">
+            <Label text="Student Academic Reports"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Separator/>
+
+            <!-- Summary Statistics -->
+            <HBox spacing="30" alignment="CENTER">
+                <VBox alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #e8f4fd; -fx-border-color: #3498db; -fx-border-radius: 5;">
+                    <Label text="Total Students" style="-fx-font-size: 12px; -fx-text-fill: #2980b9;"/>
+                    <Label fx:id="totalStudentsLabel" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2980b9;"/>
+                </VBox>
+                <VBox alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #e8f6f3; -fx-border-color: #27ae60; -fx-border-radius: 5;">
+                    <Label text="Average GPA" style="-fx-font-size: 12px; -fx-text-fill: #27ae60;"/>
+                    <Label fx:id="averageGPALabel" text="0.00" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+                </VBox>
+                <VBox alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #fef9e7; -fx-border-color: #f39c12; -fx-border-radius: 5;">
+                    <Label text="Active Enrollments" style="-fx-font-size: 12px; -fx-text-fill: #f39c12;"/>
+                    <Label fx:id="activeEnrollmentsLabel" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #f39c12;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <TabPane>
+            <!-- Individual Student Report Tab -->
+            <Tab text="Individual Student Report">
+                <VBox spacing="15" style="-fx-padding: 15;">
+                    <!-- Student Selection -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Select Student:" style="-fx-font-weight: bold;"/>
+                        <ComboBox fx:id="studentComboBox" prefWidth="400"/>
+                        <Button text="Generate Report" onAction="#handleGenerateStudentReport"
+                                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                        <Button text="Export" onAction="#handleExportReport"
+                                style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+                    </HBox>
+
+                    <!-- Report Display -->
+                    <Label text="Student Academic Report:" style="-fx-font-weight: bold;"/>
+                    <TextArea fx:id="reportTextArea" prefRowCount="20" wrapText="true"
+                              style="-fx-font-family: 'Consolas', 'Monaco', monospace; -fx-font-size: 12px;"/>
+                </VBox>
+            </Tab>
+
+            <!-- All Students Overview Tab -->
+            <Tab text="All Students Overview">
+                <VBox spacing="15" style="-fx-padding: 15;">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Complete Student Academic Report" style="-fx-font-weight: bold;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="Refresh Data" onAction="#handleGenerateAllStudentsReport"
+                                style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
+                    </HBox>
+
+                    <TableView fx:id="allStudentsTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colRegNumber" text="Reg Number" prefWidth="120"/>
+                            <TableColumn fx:id="colStudentName" text="Student Name" prefWidth="200"/>
+                            <TableColumn fx:id="colDepartment" text="Department" prefWidth="150"/>
+                            <TableColumn fx:id="colEmail" text="Email" prefWidth="180"/>
+                            <TableColumn fx:id="colEnrollmentCount" text="Courses" prefWidth="80"/>
+                            <TableColumn fx:id="colGPA" text="GPA" prefWidth="80"/>
+                            <TableColumn fx:id="colAcademicStanding" text="Standing" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>

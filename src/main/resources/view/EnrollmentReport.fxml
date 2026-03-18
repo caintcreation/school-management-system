@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controller.CourseReportController"
+            prefWidth="1200" prefHeight="800"
+            style="-fx-padding: 15;">
+    <top>
+        <VBox spacing="10" style="-fx-padding: 15;">
+            <Label text="Enrollment Reports" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+            <Separator/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="20" style="-fx-padding: 15;">
+            <!-- Report Controls -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Report Type:"/>
+                <ComboBox fx:id="reportTypeComboBox" prefWidth="150">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Course Enrollment"/>
+                            <String fx:value="Department Statistics"/>
+                            <String fx:value="Semester Summary"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <Label text="Semester:"/>
+                <ComboBox fx:id="semesterFilterComboBox" promptText="All Semesters" prefWidth="150"/>
+                <Label text="Department:"/>
+                <ComboBox fx:id="departmentFilterComboBox" promptText="All Departments" prefWidth="150"/>
+                <Button text="Generate Report" onAction="#handleGenerateEnrollmentReport"
+                        style="-fx-background-color: #2E8B57; -fx-text-fill: white;"/>
+                <Button text="Export Excel" onAction="#handleExportEnrollmentExcel"/>
+            </HBox>
+
+            <TabPane>
+                <!-- Summary Statistics Tab -->
+                <Tab text="Summary Statistics">
+                    <VBox spacing="20">
+                        <!-- Key Metrics -->
+                        <HBox spacing="30" alignment="CENTER">
+                            <VBox alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #f0f8ff; -fx-border-color: #ccc;">
+                                <Label text="Total Students" style="-fx-font-size: 14; -fx-text-fill: #666;"/>
+                                <Label fx:id="totalStudentsLabel" text="0" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2E8B57;"/>
+                            </VBox>
+                            <VBox alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #fff0f5; -fx-border-color: #ccc;">
+                                <Label text="Total Courses" style="-fx-font-size: 14; -fx-text-fill: #666;"/>
+                                <Label fx:id="totalCoursesLabel" text="0" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #FF69B4;"/>
+                            </VBox>
+                            <VBox alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #f0fff0; -fx-border-color: #ccc;">
+                                <Label text="Active Enrollments" style="-fx-font-size: 14; -fx-text-fill: #666;"/>
+                                <Label fx:id="activeEnrollmentsLabel" text="0" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #32CD32;"/>
+                            </VBox>
+                            <VBox alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #fffacd; -fx-border-color: #ccc;">
+                                <Label text="Average GPA" style="-fx-font-size: 14; -fx-text-fill: #666;"/>
+                                <Label fx:id="averageGpaLabel" text="0.00" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #FFD700;"/>
+                            </VBox>
+                        </HBox>
+
+                        <!-- Charts -->
+                        <HBox spacing="20" VBox.vgrow="ALWAYS">
+                            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="Enrollments by Course" style="-fx-font-weight: bold;"/>
+                                <BarChart fx:id="enrollmentsByCourseChart" prefHeight="300">
+                                    <xAxis>
+                                        <CategoryAxis label="Courses"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Number of Students"/>
+                                    </yAxis>
+                                </BarChart>
+                            </VBox>
+
+                            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="Grade Distribution" style="-fx-font-weight: bold;"/>
+                                <PieChart fx:id="gradeDistributionChart" prefHeight="300"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </Tab>
+
+                <!-- Detailed Report Tab -->
+                <Tab text="Detailed Report">
+                    <VBox spacing="15">
+                        <TableView fx:id="detailedEnrollmentTableView" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn text="Course Code" prefWidth="100">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="courseCode"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Course Name" prefWidth="200">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="courseName"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Department" prefWidth="120">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="department"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Enrolled Students" prefWidth="100">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="enrolledCount"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Capacity" prefWidth="80">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="capacity"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Completion Rate" prefWidth="100">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="completionRate"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Average Grade" prefWidth="100">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="averageGrade"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </Tab>
+            </TabPane>
+        </VBox>
+    </center>
+</BorderPane>
